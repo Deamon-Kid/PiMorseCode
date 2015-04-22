@@ -3,16 +3,7 @@ import time
 import sys
 import argparse
 import os.path
-
-code = {}
-
-# TODO: Rename this function for better clarity
-def generateMorse(text):
-	result = ""
-	for c in text.upper():
-		if c in code:
-			result += str(code[c])
-	return result.strip()
+import Morse
 
 # Function that handles the arguments
 def parseCommand():
@@ -32,14 +23,12 @@ def main():
 	DIT = args.dit
 	DAH = 3*DIT
 
-	#Load the CodeFile
-	if not os.path.isfile(args.code):
-		print "CodeFile does not exist!"
+	# Setup the converter
+	try:
+		morseConverter = Morser.Converter(args.code)
+	except IOError:
 		return 1
-	for line in file(args.code):
-		tmp = line.split(":")
-		code[tmp[0]] = tmp[1]
-	
+
 	# Setup the GPIO-Pins		
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setup(LED,GPIO.OUT)
@@ -52,7 +41,7 @@ def main():
 	for word in args.text:
 		# TODO put this in its function 
 		for letter in word:
-			sequence = generateMorse(letter)
+			sequence = morseConverter.toMorse(letter)
 			if DEBUG:
 				print sequence
 			for light in sequence:
