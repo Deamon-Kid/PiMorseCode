@@ -25,7 +25,7 @@ def main():
 
 	# Setup the converter
 	try:
-		morseConverter = Morser.Converter(args.code)
+		morseConverter = Morse.Converter(args.code)
 	except IOError:
 		return 1
 
