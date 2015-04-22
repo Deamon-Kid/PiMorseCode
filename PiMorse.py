@@ -37,7 +37,7 @@ def main():
 			TEXT += line.strip();
 	else:
 		TEXT = args.text
-	print TEXT
+
 	# Setup the converter
 	try:
 		morseConverter = Morse.Converter(args.code)
@@ -66,7 +66,8 @@ def main():
 				GPIO.output(LED, GPIO.LOW)
 				time.sleep(DIT)
 			time.sleep(2*DIT)
-		time.sleep(4*DIT)
+		if word != TEXT[-1]:
+			time.sleep(4*DIT)
 		if DEBUG:
 			print " "
 	GPIO.cleanup()
