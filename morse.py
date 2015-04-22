@@ -3,6 +3,7 @@ import time
 import sys
 import argparse
 import os.path
+
 code = {}
 
 # TODO: Rename this function for better clarity
@@ -13,6 +14,7 @@ def generateMorse(text):
 			result += str(code[c])
 	return result.strip()
 
+# Function that handles the arguments
 def parseCommand():
 	parse = argparse.ArgumentParser()
 	parse.add_argument("text")
@@ -46,7 +48,9 @@ def main():
 	if DEBUG:
 		print vars(args)
 	
+	# let the LED blink
 	for word in args.text:
+		# TODO put this in its function 
 		for letter in word:
 			sequence = generateMorse(letter)
 			if DEBUG:
@@ -64,5 +68,7 @@ def main():
 		if DEBUG:
 			print " "
 	GPIO.cleanup()
+
+# Have a main function
 if __name__ == "__main__":
 	sys.exit(main())
