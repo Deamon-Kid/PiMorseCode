@@ -68,8 +68,8 @@ def main():
 			time.sleep(2*DIT)
 		if word != TEXT[-1]:
 			time.sleep(4*DIT)
-		if DEBUG:
-			print " "
+	if DEBUG:
+		print " "
 	GPIO.cleanup()
 
 # Have a main function
